@@ -1,15 +1,16 @@
-// Copyright (c) 2011-2013 The Bitcoin Core developers
+// Copyright (c) 2011-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_QT_TRANSACTIONVIEW_H
 #define BITCOIN_QT_TRANSACTIONVIEW_H
 
-#include "guiutil.h"
+#include <qt/guiutil.h>
 
 #include <QWidget>
 #include <QKeyEvent>
 
+class PlatformStyle;
 class TransactionFilterProxy;
 class WalletModel;
 
@@ -32,7 +33,7 @@ class TransactionView : public QWidget
     Q_OBJECT
 
 public:
-    explicit TransactionView(QWidget *parent = 0);
+    explicit TransactionView(const PlatformStyle *platformStyle, QWidget *parent = 0);
 
     void setModel(WalletModel *model);
 
@@ -65,7 +66,7 @@ private:
     QComboBox *dateWidget;
     QComboBox *typeWidget;
     QComboBox *watchOnlyWidget;
-    QLineEdit *addressWidget;
+    QLineEdit *search_widget;
     QLineEdit *amountWidget;
 
     QMenu *contextMenu;
@@ -74,6 +75,8 @@ private:
     QFrame *dateRangeWidget;
     QDateTimeEdit *dateFrom;
     QDateTimeEdit *dateTo;
+    QAction *abandonAction;
+    QAction *bumpFeeAction;
 
     QWidget *createDateRangeWidget();
 
@@ -83,7 +86,7 @@ private:
 
     bool eventFilter(QObject *obj, QEvent *event);
 
-private slots:
+private Q_SLOTS:
     void contextualMenu(const QPoint &);
     void dateRangeChanged();
     void showDetails();
@@ -92,21 +95,25 @@ private slots:
     void copyLabel();
     void copyAmount();
     void copyTxID();
+    void copyTxHex();
+    void copyTxPlainText();
     void openThirdPartyTxUrl(QString url);
     void updateWatchOnlyColumn(bool fHaveWatchOnly);
+    void abandonTx();
+    void bumpFee();
 
-signals:
+Q_SIGNALS:
     void doubleClicked(const QModelIndex&);
 
     /**  Fired when a message should be reported to the user */
     void message(const QString &title, const QString &message, unsigned int style);
 
-public slots:
+public Q_SLOTS:
     void chooseDate(int idx);
     void chooseType(int idx);
     void chooseWatchonly(int idx);
-    void changedPrefix(const QString &prefix);
-    void changedAmount(const QString &amount);
+    void changedAmount();
+    void changedSearch();
     void exportClicked();
     void focusTransaction(const QModelIndex&);
 

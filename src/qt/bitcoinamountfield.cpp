@@ -1,12 +1,12 @@
-// Copyright (c) 2011-2014 The Bitcoin Core developers
+// Copyright (c) 2011-2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "bitcoinamountfield.h"
+#include <qt/bitcoinamountfield.h>
 
-#include "bitcoinunits.h"
-#include "guiconstants.h"
-#include "qvaluecombobox.h"
+#include <qt/bitcoinunits.h>
+#include <qt/guiconstants.h>
+#include <qt/qvaluecombobox.h>
 
 #include <QApplication>
 #include <QAbstractSpinBox>
@@ -61,7 +61,7 @@ public:
     void setValue(const CAmount& value)
     {
         lineEdit()->setText(BitcoinUnits::format(currentUnit, value, false, BitcoinUnits::separatorAlways));
-        emit valueChanged();
+        Q_EMIT valueChanged();
     }
 
     void stepBy(int steps)
@@ -184,11 +184,11 @@ protected:
         return rv;
     }
 
-signals:
+Q_SIGNALS:
     void valueChanged();
 };
 
-#include "bitcoinamountfield.moc"
+#include <qt/bitcoinamountfield.moc>
 
 BitcoinAmountField::BitcoinAmountField(QWidget *parent) :
     QWidget(parent),

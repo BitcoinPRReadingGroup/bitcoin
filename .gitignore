@@ -6,6 +6,7 @@ src/bitcoind
 src/bitcoin-cli
 src/bitcoin-tx
 src/test/test_bitcoin
+src/test/test_bitcoin_fuzzy
 src/qt/test/test_bitcoin-qt
 
 # autoreconf
@@ -55,7 +56,6 @@ src/qt/test/moc*.cpp
 *.o
 *.o-*
 *.patch
-.bitcoin
 *.a
 *.pb.cc
 *.pb.h
@@ -76,17 +76,14 @@ src/qt/test/moc*.cpp
 Makefile
 bitcoin-qt
 Bitcoin-Qt.app
+background.tiff*
 
 # Unit-tests
 Makefile.test
 bitcoin-qt_test
-src/test/buildenv.py
 
 # Resources cpp
 qrc_*.cpp
-
-# Qt creator
-*.pro.user
 
 # Mac specific
 .DS_Store
@@ -94,6 +91,7 @@ build
 
 #lcov
 *.gcno
+*.gcda
 /*.info
 test_bitcoin.coverage/
 total.coverage/
@@ -103,13 +101,12 @@ coverage_percent.txt
 linux-coverage-build
 linux-build
 win32-build
-qa/pull-tester/run-bitcoind-for-test.sh
-qa/pull-tester/tests-config.sh
-qa/pull-tester/cache/*
-qa/pull-tester/test.*/*
+test/config.ini
+test/cache/*
 
 !src/leveldb*/Makefile
 
 /doc/doxygen/
 
 libbitcoinconsensus.pc
+contrib/devtools/split-debug.sh

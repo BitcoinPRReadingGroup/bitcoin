@@ -1,10 +1,10 @@
-// Copyright (c) 2011-2013 The Bitcoin Core developers
+// Copyright (c) 2011-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "bitcoinunits.h"
+#include <qt/bitcoinunits.h>
 
-#include "primitives/transaction.h"
+#include <primitives/transaction.h>
 
 #include <QStringList>
 
@@ -110,13 +110,6 @@ QString BitcoinUnits::format(int unit, const CAmount& nIn, bool fPlus, Separator
     return quotient_str + QString(".") + remainder_str;
 }
 
-
-// TODO: Review all remaining calls to BitcoinUnits::formatWithUnit to
-// TODO: determine whether the output is used in a plain text context
-// TODO: or an HTML context (and replace with
-// TODO: BtcoinUnits::formatHtmlWithUnit in the latter case). Hopefully
-// TODO: there aren't instances where the result could be used in
-// TODO: either context.
 
 // NOTE: Using formatWithUnit in an HTML context risks wrapping
 // quantities at the thousands separator. More subtly, it also results

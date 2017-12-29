@@ -21,14 +21,20 @@
     <string>This is a normal payment.</string>
    </property>
    <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Sunken</enum>
+    <enum>QFrame::NoFrame</enum>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <property name="spacing">
+    <property name="topMargin">
+     <number>8</number>
+    </property>
+    <property name="bottomMargin">
+     <number>4</number>
+    </property>
+    <property name="horizontalSpacing">
      <number>12</number>
+    </property>
+    <property name="verticalSpacing">
+     <number>8</number>
     </property>
     <item row="0" column="0">
      <widget class="QLabel" name="payToLabel">
@@ -157,7 +163,7 @@
      </widget>
     </item>
     <item row="2" column="1">
-     <layout class="QHBoxLayout" name="horizontalLayoutAmount" stretch="0,1">
+     <layout class="QHBoxLayout" name="horizontalLayoutAmount" stretch="0,1,0">
       <item>
        <widget class="BitcoinAmountField" name="payAmount"/>
       </item>
@@ -168,6 +174,13 @@
         </property>
         <property name="text">
          <string>S&amp;ubtract fee from amount</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="useAvailableBalanceButton">
+        <property name="text">
+         <string>Use available balance</string>
         </property>
        </widget>
       </item>
@@ -190,6 +203,13 @@
       </property>
       <property name="textFormat">
        <enum>Qt::PlainText</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" colspan="2">
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
@@ -618,10 +638,7 @@
     <bool>true</bool>
    </property>
    <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Sunken</enum>
+    <enum>QFrame::NoFrame</enum>
    </property>
    <layout class="QGridLayout" name="gridLayout_is">
     <property name="spacing">
@@ -1150,10 +1167,7 @@
     <bool>true</bool>
    </property>
    <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Sunken</enum>
+    <enum>QFrame::NoFrame</enum>
    </property>
    <layout class="QGridLayout" name="gridLayout_s">
     <property name="spacing">
@@ -1241,12 +1255,12 @@
   <customwidget>
    <class>QValidatedLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>qvalidatedlineedit.h</header>
+   <header>qt/qvalidatedlineedit.h</header>
   </customwidget>
   <customwidget>
    <class>BitcoinAmountField</class>
    <extends>QLineEdit</extends>
-   <header>bitcoinamountfield.h</header>
+   <header>qt/bitcoinamountfield.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

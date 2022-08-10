@@ -19,7 +19,7 @@ BITCOIND_NICE=${BITCOIND_NICE:-${NICELEVEL:-0}}
 BITCOIND_OPTS="${BITCOIND_OPTS:-${BITCOIN_OPTS}}"
 
 name="Bitcoin Core Daemon"
-description="Bitcoin crypto-currency p2p network daemon"
+description="Bitcoin cryptocurrency P2P network daemon"
 
 command="/usr/bin/bitcoind"
 command_args="-pid=\"${BITCOIND_PIDFILE}\" \
@@ -32,7 +32,11 @@ required_files="${BITCOIND_CONFIGFILE}"
 start_stop_daemon_args="-u ${BITCOIND_USER} \
 			-N ${BITCOIND_NICE} -w 2000"
 pidfile="${BITCOIND_PIDFILE}"
-retry=60
+
+# The retry schedule to use when stopping the daemon. Could be either
+# a timeout in seconds or multiple signal/timeout pairs (like
+# "SIGKILL/180 SIGTERM/300")
+retry="${BITCOIND_SIGTERM_TIMEOUT}"
 
 depend() {
 	need localmount net

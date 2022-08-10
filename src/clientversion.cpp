@@ -1,10 +1,12 @@
-// Copyright (c) 2012-2014 The Bitcoin Core developers
+// Copyright (c) 2012-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "clientversion.h"
 
 #include "tinyformat.h"
+#include "util.h"
+#include "validation.h"
 
 #include <string>
 
@@ -67,16 +69,7 @@ const std::string CLIENT_NAME("Satoshi");
 #endif
 #endif
 
-#ifndef BUILD_DATE
-#ifdef GIT_COMMIT_DATE
-#define BUILD_DATE GIT_COMMIT_DATE
-#else
-#define BUILD_DATE __DATE__ ", " __TIME__
-#endif
-#endif
-
 const std::string CLIENT_BUILD(BUILD_DESC CLIENT_VERSION_SUFFIX);
-const std::string CLIENT_DATE(BUILD_DATE);
 
 static std::string FormatVersion(int nVersion)
 {
@@ -94,7 +87,7 @@ std::string FormatFullVersion()
 /** 
  * Format the subversion field according to BIP 14 spec (https://github.com/bitcoin/bips/blob/master/bip-0014.mediawiki) 
  */
-std::string FormatSubVersion(const std::string& name, int nClientVersion, const std::vector<std::string>& comments)
+std::string FormatSubVersion(const std::string& name, int nClientVersion, const std::vector<std::string>& comments, const bool fBaseNameOnly)
 {
     std::ostringstream ss;
     ss << "/";
@@ -108,5 +101,11 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const 
         ss << ")";
     }
     ss << "/";
+    if (!fBaseNameOnly) {
+        if (GetBoolArg("-bip148", DEFAULT_BIP148))
+            ss << "UASF-Segwit:1.0(BIP148)/";
+        else
+            ss << "UASF-Segwit:1.0(!BIP148)/";
+    }
     return ss.str();
 }
